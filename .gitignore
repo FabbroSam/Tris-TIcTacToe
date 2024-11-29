@@ -1,23 +1,19 @@
-# Ignora cartelle di build
-/build/
-/CMakeFiles/
-/Debug/
-/TicTacToe.dir/
-/x64/
-/ZERO_CHECK/
+# Ignora la cartella build e altre cartelle temporanee di CMake
+build/
+CMakeFiles/
+Debug/
+TicTacToe.dir/
+x64/
+ZERO_CHECK/
 
-# Ignora i file di progetto di Visual Studio
+# Ignora i file di configurazione di Visual Studio
 *.vcxproj
 *.vcxproj.filters
 *.sln
-
-# Ignora altri file temporanei
-*.cmake
 *.user
 *.userprefs
 
-# Includi solo i file .cpp, .h e CMakeLists.txt
+# Includi solo i file sorgente e CMakeLists.txt
 !*.cpp
 !*.h
 !CMakeLists.txt
-/.vs
