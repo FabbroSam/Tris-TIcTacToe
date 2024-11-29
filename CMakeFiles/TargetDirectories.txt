@@ -1,3 +1,0 @@
-C:/Users/Admin/Desktop/PROGRAMMAZIONE VIDEOGIOCHI/TicTacToe/TicTacToe/build/CMakeFiles/TicTacToe.dir
-C:/Users/Admin/Desktop/PROGRAMMAZIONE VIDEOGIOCHI/TicTacToe/TicTacToe/build/CMakeFiles/ALL_BUILD.dir
-C:/Users/Admin/Desktop/PROGRAMMAZIONE VIDEOGIOCHI/TicTacToe/TicTacToe/build/CMakeFiles/ZERO_CHECK.dir
