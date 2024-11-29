@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Admin\Desktop\PROGRAMMAZIONE VIDEOGIOCHI\TicTacToe\TicTacToe\Board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Admin\Desktop\PROGRAMMAZIONE VIDEOGIOCHI\TicTacToe\TicTacToe\Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Admin\Desktop\PROGRAMMAZIONE VIDEOGIOCHI\TicTacToe\TicTacToe\Menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Admin\Desktop\PROGRAMMAZIONE VIDEOGIOCHI\TicTacToe\TicTacToe\Object.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Admin\Desktop\PROGRAMMAZIONE VIDEOGIOCHI\TicTacToe\TicTacToe\TextObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Admin\Desktop\PROGRAMMAZIONE VIDEOGIOCHI\TicTacToe\TicTacToe\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\Admin\Desktop\PROGRAMMAZIONE VIDEOGIOCHI\TicTacToe\TicTacToe\Board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Admin\Desktop\PROGRAMMAZIONE VIDEOGIOCHI\TicTacToe\TicTacToe\Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Admin\Desktop\PROGRAMMAZIONE VIDEOGIOCHI\TicTacToe\TicTacToe\Menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Admin\Desktop\PROGRAMMAZIONE VIDEOGIOCHI\TicTacToe\TicTacToe\Object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Admin\Desktop\PROGRAMMAZIONE VIDEOGIOCHI\TicTacToe\TicTacToe\TextObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Admin\Desktop\PROGRAMMAZIONE VIDEOGIOCHI\TicTacToe\TicTacToe\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{C5FF3A00-4801-3D50-A93E-8F199DB6BC4C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{BF56CFC1-5192-33B1-8174-5A4489439027}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
