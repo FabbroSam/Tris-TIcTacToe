@@ -10,8 +10,8 @@
 #include <iostream>
 
 class Game
-{ 
-	// game rendering
+{
+		// game rendering
 	protected:
 
 		SDL_Window* _window;
@@ -26,17 +26,18 @@ class Game
 		void quit();
 
 	// game logic
-
-		enum class State { RUNNING, QUIT };
-
 		State _state;
-		void reset();
+		ModType _type;
+		Turn _turn;
 
 	// Object
 		std::list<Object*> _objects;
 		
 	// Board
 		Board* _board;
+
+	// Button
+		TextObject* _whoMove;
 
 	// Costruttore	
 		Game();
@@ -46,8 +47,21 @@ class Game
 		// singleton
 		static Game* instance();
 
-		void run();
-
 		//get/set
 		std::list<Object*> objects() { return _objects; }
+		Board* board() { return _board; }
+		State state() { return _state; }
+		void setState(State st) { _state = st; }
+		void setModType(ModType type) { _type = type; }
+		ModType modType() { return _type; }
+
+		// action
+		void run();
+		void reset();
+
+		// Modality
+		void playerVsAi();
+		void playerVsPlayer();
+		void aiVsAi();
+
 };

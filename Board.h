@@ -1,9 +1,7 @@
 #pragma once
 #include "Object.h"
+#include "utils.h"
 
-enum class GameType { TRIS, TICTACTOE };
-enum class Player { RED = 1, BLUE =  -1, NONE = 0};
-enum class GameState { START, MOVERED, MOVEBLUE, END};
 
 class Board : public Object
 {
@@ -17,8 +15,9 @@ class Board : public Object
 		GameState _state;
 
 		//logic game
+		Player _player;
 		Player _winner;
-		int _lineWinner[2][2];
+		int _lineWinner[2][2]{0};
 
 	public:
 		Board(SDL_Renderer* renderer, SDL_FRect rect, int dim);
@@ -28,10 +27,15 @@ class Board : public Object
 		virtual void update() { isWinner(); };
 		virtual void render() ;
 
+		//get/set
+		GameState state() { return _state; };
+		void setState(GameState state) { _state = state; };
+		Player player() { return _player; };
+		void setPlayer(Player player) { _player = player; };
+
 		// action
 		bool isFreeCell(int xCell, int yCell) { return !_matrix[xCell][yCell]; }
 		void isWinner();
-		void moveBlue(int xCell, int yCell) { (_state == GameState::START || _state == GameState::MOVEBLUE) ? (_matrix[xCell][yCell] = -1) : false; };
-		void moveRed(int xCell, int yCell) { (_state == GameState::START || _state == GameState::MOVEBLUE) ? (_matrix[xCell][yCell] = 1) : false; };
-
+		void move(int xCell, int yCell);
+		void reset();
 };

@@ -4,6 +4,7 @@
 #include "TextObject.h"
 #include "Board.h"
 
+#include "utils.h"
 #include <SDL.h>
 #include <SDL_ttf.h>
 
@@ -19,7 +20,9 @@ Game* Game::instance()
 Game::Game() :
 	_window(nullptr),
 	_renderer(nullptr),
-	_font(nullptr)
+	_font(nullptr),
+	_state(State::RUNNING),
+	_type(ModType::PvsAI)
 {
 	init();
 	initObjects();
@@ -57,13 +60,22 @@ void Game::init()
 		return;
 	}
 }
+
 void Game::initObjects()
 {
-	_objects.push_back(new TextObject(_renderer, _font, { 0,0,100,25 }, { 0,0,0,255 }, "Menu"));
-	_objects.push_back(new TextObject(_renderer, _font, { 100,0,100,25 }, { 0,0,0,255 }, "Type"));
+	_objects.push_back(new TextObject(_renderer, _font, { 2,2,100,25 }, { 0,0,0,255 }, "Start"));
+	_objects.push_back(new TextObject(_renderer, _font, { 102,2,100,25 }, { 0,0,0,255 }, "Reset"));
+
+	_whoMove = new TextObject(_renderer, _font, { 204,2,100,25 }, { 0,0,0,255 }, "Player");
+	_objects.push_back(_whoMove);
+
+	_objects.push_back(new TextObject(_renderer, _font, {356,2,100,25 }, { 0,0,0,255 }, "P vs AI"));
+
+
 	_board = new Board(_renderer, { 50,150,400,400 }, 3);
 	_objects.push_back(_board);
 }
+
 void Game::run()
 {
 
@@ -73,7 +85,6 @@ void Game::run()
 		update();
 		render();
 	}
-
 	quit();
 }
 
@@ -89,18 +100,23 @@ void Game::reset()
 	_state = State::RUNNING;
 }
 
-
 void Game::processEvents()
 {
+	int mouseX, mouseY;
+	Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);
+
 	SDL_Event event;
 	while (SDL_PollEvent(&event))
 	{
-		if (event.type == SDL_QUIT)
-			_state = State::QUIT;
-		else
-			for (const auto& obj : _objects)
-				obj->processEvents(event);
+		for (const auto& obj : _objects)
+		{
+			SDL_FRect rect = obj->rect();
+			if ((mouseX > rect.x) && (mouseX < rect.x + rect.w) &&
+				(mouseY > rect.y) && (mouseY < rect.y + rect.h))
+				obj->processEvents(event);			
+		}
 	}
+
 
 	const Uint8* state = SDL_GetKeyboardState(0);
 	if (state[SDL_SCANCODE_ESCAPE])
@@ -122,6 +138,13 @@ void Game::update()
 {
 	for (const auto& obj : _objects)
 		obj->update();
+
+	if (_type == ModType::PvsP)
+		playerVsPlayer();
+	else if (_type == ModType::PvsAI)
+		playerVsAi();
+	else if (_type == ModType::AIvsAI)
+		aiVsAi();
 }
 
 void Game::render() {
@@ -134,4 +157,20 @@ void Game::render() {
 
 	// Mostra tutto sullo schermo
 	SDL_RenderPresent(_renderer);
+}
+
+void Game::playerVsAi()
+{
+	if (_turn == Turn::PLAYER)
+	{
+		std::cout << "player turn" << std::endl;
+	}
+}
+void Game::playerVsPlayer()
+{
+
+}
+void Game::aiVsAi()
+{
+
 }

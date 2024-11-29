@@ -1,4 +1,6 @@
 #pragma once
+#include "utils.h"
+
 #include <SDL.h>
 #include <SDL_ttf.h>
 
@@ -10,6 +12,8 @@ class Object
 
 	public:
 		Object(SDL_Renderer* renderer, SDL_FRect rect) : _renderer(renderer), _rect(rect) {}
+
+		SDL_FRect rect() { return _rect; }
 
 		// game rendering
 		virtual void processEvents(SDL_Event& event) = 0;

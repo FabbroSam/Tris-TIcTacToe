@@ -1,5 +1,6 @@
 #include "Board.h"
 #include "Object.h"
+#include "utils.h"
 
 #include <SDL.h>
 #include <SDL_ttf.h>
@@ -11,14 +12,16 @@ Board::Board(SDL_Renderer* renderer, SDL_FRect rect, int dim)
 	_renderer = renderer;
 	_rect = rect;
 	_dim = dim;
+	_type = GameType::NONE;
+	_state = GameState::START;
+	_player = Player::RED;
+	_winner = Player::NONE;
 
 	_matrix = new int* [_dim];
-	for (int i = 0; i < _dim; ++i)
-	{
+	for (int i = 0; i < _dim; ++i){
 		_matrix[i] = new int[_dim];
-		for (int j = 0; j < _dim; ++j) {
+		for (int j = 0; j < _dim; ++j)
 			_matrix[i][j] = 0;
-		}
 	}
 
 	switch (_dim)
@@ -34,11 +37,7 @@ Board::Board(SDL_Renderer* renderer, SDL_FRect rect, int dim)
 	default:
 		std::cout << "Dimensione non supportata!" << std::endl;
 		break;
-	}
-	_state = GameState::START;
-
-	_winner = Player::NONE;
-	int _lineWinner[2][2]{ 0 };
+	};
 }
 
 void Board::processEvents(SDL_Event& event)
@@ -46,36 +45,26 @@ void Board::processEvents(SDL_Event& event)
 	int mouseX, mouseY;
 	Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);
 
-	// Verifica se il mouse è all'interno del rettangolo del board
-	if ((mouseX > _rect.x) && (mouseX < _rect.x + _rect.w) &&
-		(mouseY > _rect.y) && (mouseY < _rect.y + _rect.h))
-	{
+	std::cout << "Board:   " << "X: " << mouseX << "Y: " << mouseY << std::endl;
 
-		std::cout << "Board:   " << "X: " << mouseX << "Y: " << mouseY << std::endl;
-
-		if (event.type == SDL_MOUSEBUTTONUP) {
-			int mouseX = event.button.x;
-			int mouseY = event.button.y;
+	if (event.type == SDL_MOUSEBUTTONUP) {
+		int mouseX = event.button.x;
+		int mouseY = event.button.y;
 
 
-			// Calcola la larghezza e altezza di una singola cella
-			float cellWidth = _rect.w / _dim;
-			float cellHeight = _rect.h / _dim;
+		// Calcola la larghezza e altezza di una singola cella
+		float cellWidth = _rect.w / _dim;
+		float cellHeight = _rect.h / _dim;
 
-			// Determina l'indice della riga e della colonna
-			int col = (mouseX - _rect.x) / cellWidth;
-			int row = (mouseY - _rect.y) / cellHeight;
+		// Determina l'indice della riga e della colonna
+		int col = (mouseX - _rect.x) / cellWidth;
+		int row = (mouseY - _rect.y) / cellHeight;
 
-			if (isFreeCell(row, col))
-			{
-				if (event.button.button == SDL_BUTTON_LEFT) {
-					moveRed(row, col);
-					std::cout << "Mouse Left Released at (" << row << ", " << col << ")" << std::endl;
-				}
-				else if (event.button.button == SDL_BUTTON_RIGHT) {
-					moveBlue(row, col);
-					std::cout << "Mouse Right Released at (" << row << ", " << col << ")" << std::endl;
-				}
+		if (isFreeCell(row, col))
+		{
+			if (event.button.button == SDL_BUTTON_LEFT) {
+				move(row, col);
+				std::cout << "(" << row << ", " << col << ")" << std::endl;
 			}
 		}
 	}
@@ -207,4 +196,30 @@ void Board::isWinner()
 			_state = GameState::END;
 		}
 	}
+}
+
+void Board::move(int xCell, int yCell) {
+
+	if (_state == GameState::END || _state == GameState::START && _player != Player::NONE) {
+		return;
+	}
+	if (_player == Player::RED) {
+		_matrix[xCell][yCell] = 1;
+		_player = Player::BLUE;
+	}
+	else if (_player == Player::BLUE) {
+		_matrix[xCell][yCell] = -1;
+		_player = Player::RED;
+	}
+
+}
+
+void Board::reset()
+{
+	_state = GameState::START;
+	_winner = Player::NONE;
+
+	for (int i = 0; i < _dim; ++i)
+		for (int j = 0; j < _dim; ++j)
+			_matrix[i][j] = 0;
 }
